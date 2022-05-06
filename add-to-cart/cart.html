@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="mens.css" />
+    <link rel="stylesheet" href="navbar.css" />
+</head>
+<body>
+    <div id="navbar">
+        <h3>Reebok</h3>
+    
+        <div id="nav">
+            <h3><a href="mens.html">Mens</a> </h3>
+            <h3><a href="womens.html">Womens</a> </h3>
+            <h3><a href="cart.html">Cart</a> </h3>
+            <h3>Settings</h3>
+        </div>
+    </div>
+    
+    <section>
+
+    </section>
+</body>
+</html>
+
+<script>
+     var cart = JSON.parse(localStorage.getItem("cart")) || [];
+  
+  displayData(cart)
+
+  function displayData(data){
+document.querySelector("section").innerHTML=""
+    data.forEach(function(elem,index){
+
+        var box = document.createElement("div")
+
+        var image = document.createElement("img")
+        image.setAttribute("src", elem.image_url);
+
+        var name = document.createElement("h3")
+        name.textContent = elem.name;
+
+        var price = document.createElement("span")
+        price.innerText = elem.price;
+
+        var strike = document.createElement("s")
+        strike.textContent = elem.strikedoffprice;
+
+        var button = document.createElement("button")
+        button.textContent = "DELETE"
+
+        button.addEventListener("click", function(){
+            deletefunction(elem)
+        })
+
+
+        box.append(image, name, price, strike, button);
+        document.querySelector("section").append(box);
+
+
+    })
+  };
+
+  function deletefunction(index){
+      cart.splice(index,1);
+      localStorage.setItem("cart", JSON.stringify(cart))
+      displayData(cart)
+  }
+</script>
